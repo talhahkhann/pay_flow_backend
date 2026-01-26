@@ -14,7 +14,7 @@ No one pushes directly to `main`.
 ### 1️⃣ Clone the Repository
 
 
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git clone https://github.com/YOUR_USERNAME/pay_flow_backend
 cd YOUR_REPO_NAME
 2️⃣ Create a New Branch
 Before starting any work:
