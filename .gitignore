@@ -1,0 +1,21 @@
+# .NET Core / .NET 5+ default
+
+# Build Folders
+bin/
+obj/
+out/
+
+# VS / Rider / IDE
+.vs/
+*.user
+*.suo
+*.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# OS
+.DS_Store
+Thumbs.db
