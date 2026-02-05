@@ -28,10 +28,6 @@
 /home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
 /home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
 /home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
-/home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
-/home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
-/home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
-/home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
 /home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Microsoft.OpenApi.dll
 /home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Npgsql.dll
 /home/haris/Desktop/pay_flow_backend/PaymentSystem.API/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
