@@ -1,3 +1,5 @@
+using PaymentSystem.Domain.Event;
+
 public class PaymentCompletedEvent : DomainEvent
 {
     public Guid PaymentId { get; }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
+namespace PaymentSystem.Persistence.Interceptors;
 public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 {
     private readonly string _currentUser;

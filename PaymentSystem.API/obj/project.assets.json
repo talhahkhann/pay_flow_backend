@@ -64,25 +64,6 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/9.0.8": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.OpenApi": "1.6.17"
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "Microsoft.EntityFrameworkCore/9.0.12": {
         "type": "package",
         "dependencies": {
@@ -893,7 +874,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
-          "PaymentSystem.Application": "1.0.0"
+          "PaymentSystem.Application": "1.0.0",
+          "PaymentSystem.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/PaymentSystem.Infrastructure.dll": {}
@@ -988,22 +970,6 @@
         "lib/netstandard2.0/MediatR.Contracts.xml",
         "mediatr.contracts.2.0.1.nupkg.sha512",
         "mediatr.contracts.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.OpenApi/9.0.8": {
-      "sha512": "BwF9sQCKmvu93C/pmKxJjPhF5fFB23MEcgTsGL+7W3wKLYawS4lyFSL5/qh00IJzuADLf+1SmvxMaphbyZYqQQ==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.openapi/9.0.8",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll",
-        "lib/net9.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
-        "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore/9.0.12": {
@@ -2464,7 +2430,6 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "Microsoft.AspNetCore.OpenApi >= 9.0.8",
       "PaymentSystem.Application >= 1.0.0",
       "PaymentSystem.Infrastructure >= 1.0.0",
       "PaymentSystem.Persistence >= 1.0.0",
@@ -2525,10 +2490,6 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
-          "Microsoft.AspNetCore.OpenApi": {
-            "target": "Package",
-            "version": "[9.0.8, )"
-          },
           "Serilog.AspNetCore": {
             "target": "Package",
             "version": "[10.0.0, )"

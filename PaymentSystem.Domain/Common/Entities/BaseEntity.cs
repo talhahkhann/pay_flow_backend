@@ -1,3 +1,6 @@
+
+using PaymentSystem.Domain.Event;
+
 public abstract class BaseEntity
 {
     private readonly List<IDomainEvent> _domainEvents = new();

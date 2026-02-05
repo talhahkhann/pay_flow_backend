@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jg6p6/+HguA=",
+  "dgSpecHash": "Orh1xJkj8XE=",
   "success": true,
   "projectFilePath": "/home/haris/Desktop/pay_flow_backend/PaymentSystem.API/PaymentSystem.API.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,6 @@
     "/home/haris/.nuget/packages/fluentvalidation.dependencyinjectionextensions/12.1.1/fluentvalidation.dependencyinjectionextensions.12.1.1.nupkg.sha512",
     "/home/haris/.nuget/packages/mediatr/14.0.0/mediatr.14.0.0.nupkg.sha512",
     "/home/haris/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
-    "/home/haris/.nuget/packages/microsoft.aspnetcore.openapi/9.0.8/microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
     "/home/haris/.nuget/packages/microsoft.entityframeworkcore/9.0.12/microsoft.entityframeworkcore.9.0.12.nupkg.sha512",
     "/home/haris/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.12/microsoft.entityframeworkcore.abstractions.9.0.12.nupkg.sha512",
     "/home/haris/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.12/microsoft.entityframeworkcore.analyzers.9.0.12.nupkg.sha512",
