@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lpqjcE/TQUQ=",
+  "success": true,
+  "projectFilePath": "/home/haris/Desktop/pay_flow_backend/PaymentSystem.Domain/PaymentSystem.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/haris/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.8/microsoft.aspnetcore.app.ref.9.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}
