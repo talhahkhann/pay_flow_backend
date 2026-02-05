@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaymentSystem.Application\PaymentSystem.Application.csproj" />
+    <ProjectReference Include="..\PaymentSystem.Domain\PaymentSystem.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

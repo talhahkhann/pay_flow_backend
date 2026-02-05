@@ -515,7 +515,8 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "PaymentSystem.Application >= 1.0.0"
+      "PaymentSystem.Application >= 1.0.0",
+      "PaymentSystem.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -545,6 +546,9 @@
           "projectReferences": {
             "/home/haris/Desktop/pay_flow_backend/PaymentSystem.Application/PaymentSystem.Application.csproj": {
               "projectPath": "/home/haris/Desktop/pay_flow_backend/PaymentSystem.Application/PaymentSystem.Application.csproj"
+            },
+            "/home/haris/Desktop/pay_flow_backend/PaymentSystem.Domain/PaymentSystem.Domain.csproj": {
+              "projectPath": "/home/haris/Desktop/pay_flow_backend/PaymentSystem.Domain/PaymentSystem.Domain.csproj"
             }
           }
         }
