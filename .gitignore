@@ -1,8 +1,8 @@
 # .NET Core / .NET 5+ default
 
 # Build Folders
-bin/
-obj/
+**/bin/
+**/obj/
 out/
 
 # VS / Rider / IDE
