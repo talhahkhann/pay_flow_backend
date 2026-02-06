@@ -4,6 +4,15 @@
     <ProjectReference Include="..\PaymentSystem.Application\PaymentSystem.Application.csproj" />
     <ProjectReference Include="..\PaymentSystem.Domain\PaymentSystem.Domain.csproj" />
   </ItemGroup>
+    <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+<ItemGroup>
+  <ProjectReference Include="..\PaymentSystem.Persistence\PaymentSystem.Persistence.csproj" />
+</ItemGroup>
+<ItemGroup>
+  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
+</ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>

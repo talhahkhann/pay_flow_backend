@@ -19,3 +19,7 @@ packages/
 # OS
 .DS_Store
 Thumbs.db
+# appsettings
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json

@@ -1,7 +1,5 @@
-using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using PaymentSystem.Application.Common.Interfaces;
-
-namespace PaymentSystem.API.Services;
 
 public class CurrentUserService : ICurrentUserService
 {
@@ -12,6 +10,11 @@ public class CurrentUserService : ICurrentUserService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string? UserId =>
-        _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+    public Guid? UserId =>
+        Guid.TryParse(_httpContextAccessor.HttpContext?.User?.FindFirst("uid")?.Value, out var id)
+            ? id
+            : null;
+
+    public string? Email =>
+        _httpContextAccessor.HttpContext?.User?.Identity?.Name;
 }
