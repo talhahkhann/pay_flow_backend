@@ -3,13 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaymentSystem.Application;
 using PaymentSystem.Application.Common.Interfaces;
-using PaymentSystem.API.Services;
+using PaymentSystem.Infrastructure;
 using PaymentSystem.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
+
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
@@ -29,3 +31,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Add this to PaymentSystem.API/Program.cs (at the very bottom)
+public partial class Program { }

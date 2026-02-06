@@ -1,32 +1,61 @@
+// PaymentSystem.Persistence/DependencyInjection.cs
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PaymentSystem.Application.Common.Interfaces;
 using PaymentSystem.Persistence.Context;
+using PaymentSystem.Persistence.Indentity;
 using PaymentSystem.Persistence.Interceptors;
 
-namespace PaymentSystem.Persistence
+namespace PaymentSystem.Persistence;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddPersistence(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        public static IServiceCollection AddPersistence(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        // Register interceptor
+        services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+
+        // Add DbContext with interceptor
+        services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
         {
-            // Register DbContext with interceptor
-            services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
+            options.UseNpgsql(
+                configuration.GetConnectionString("DefaultConnection"),
+                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
+            );
+
+            var currentUserService = serviceProvider.GetService<ICurrentUserService>();
+            if (currentUserService != null)
             {
-                var currentUserProvider = serviceProvider.GetRequiredService<ICurrentUserService>();
-                var interceptor = new AuditableEntitySaveChangesInterceptor(currentUserProvider.UserId);
+                var interceptor = serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>();
+                options.AddInterceptors(interceptor);
+            }
+        });
 
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
-                       .AddInterceptors(interceptor);
-            });
+        //  Add Identity with Guid key type
+        services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+        {
+            // Password settings
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequiredLength = 8;
 
-            // Register repositories, if you have generic or specific repositories
-            // services.AddScoped<IPaymentRepository, PaymentRepository>();
+            // Lockout settings
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.AllowedForNewUsers = true;
 
-            return services;
-        }
+            // User settings
+            options.User.RequireUniqueEmail = true;
+        })
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddDefaultTokenProviders();
+
+        return services;
     }
 }

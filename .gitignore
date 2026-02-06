@@ -1,8 +1,8 @@
 # .NET Core / .NET 5+ default
 
 # Build Folders
-bin/
-obj/
+**/bin/
+**/obj/
 out/
 
 # VS / Rider / IDE
@@ -19,3 +19,7 @@ packages/
 # OS
 .DS_Store
 Thumbs.db
+# appsettings
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
