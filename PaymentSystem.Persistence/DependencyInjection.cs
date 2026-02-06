@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PaymentSystem.Application.Common.Interfaces;
 using PaymentSystem.Persistence.Context;
+using PaymentSystem.Persistence.Identity;
 using PaymentSystem.Persistence.Indentity;
 using PaymentSystem.Persistence.Interceptors;
 
@@ -18,6 +19,8 @@ public static class DependencyInjection
     {
         // Register interceptor
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+        // Register the service
+        services.AddScoped<IUserIdentityService, IdentityService>();
 
         // Add DbContext with interceptor
         services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
@@ -55,7 +58,8 @@ public static class DependencyInjection
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
-
+        //Register Identity Service
+        services.AddScoped<IUserIdentityService, IdentityService>();
         return services;
     }
 }
