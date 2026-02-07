@@ -2,6 +2,8 @@ namespace PaymentSystem.Application.Common.Models;
 
 public class Error
 {
+    //Singelton Pattern - only one object Created
+    public static Error None { get; } = new(string.Empty, string.Empty, ErrorType.None);
     public string Code { get; set; }
     public string Message { get; set; }
     public ErrorType Type { get; set; }
@@ -12,8 +14,6 @@ public class Error
         Message = message;
         Type = type;
     }
-
-    public static Error None => new(string.Empty, string.Empty, ErrorType.None);
     public static Error NullValue => new("Error.NullValue", "Null value was provided", ErrorType.Failure);
     
     public static Error Validation(string code, string message) 

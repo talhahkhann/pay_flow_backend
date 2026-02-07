@@ -1,7 +1,6 @@
 using MediatR;
 using PaymentSystem.Application.Common.Interfaces;
 using PaymentSystem.Application.Common.Models;
-using PaymentSystem.Application.Users.Commands;
 
 namespace PaymentSystem.Application.Users.Commands;
 
