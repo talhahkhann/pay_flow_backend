@@ -18,8 +18,10 @@ namespace PaymentSystem.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterUserCommand command)
         {
-            var token = await _mediator.Send(command);
-            return Ok(new { Token = token });
+            var result = await _mediator.Send(command);
+            if (result.IsFailure)
+                return BadRequest(result);
+            return Ok(result);
         }
 
         [HttpPost("login")]
