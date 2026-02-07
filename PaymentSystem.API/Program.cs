@@ -34,8 +34,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.Run();
+// Only addition: respect PORT and bind to 0.0.0.0
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Run($"http://0.0.0.0:{port}");
 
 // Add this to PaymentSystem.API/Program.cs (at the very bottom)
 public partial class Program { }
