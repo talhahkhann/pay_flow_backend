@@ -10,6 +10,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+      "PaymentSystem.API": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,

@@ -21,6 +21,8 @@ public static class DependencyInjection
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
         // Register the service
         services.AddScoped<IUserIdentityService, IdentityService>();
+        services.AddScoped<IUserRepository, UserRepository>();
+
 
         // Add DbContext with interceptor
         services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>

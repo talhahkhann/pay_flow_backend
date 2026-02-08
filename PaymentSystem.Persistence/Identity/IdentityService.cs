@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PaymentSystem.Application.Common.Interfaces;
 using PaymentSystem.Application.Common.Models;
 using PaymentSystem.Persistence.Indentity;
@@ -58,7 +59,7 @@ public class IdentityService : IUserIdentityService
                 return Result<Guid>.Unauthorized("User.InvalidCredentials", "Invalid email or password");
 
             var isPasswordValid = await _userManager.CheckPasswordAsync(user, password);
-            
+
             if (!isPasswordValid)
                 return Result<Guid>.Unauthorized("User.InvalidCredentials", "Invalid email or password");
 
