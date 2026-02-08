@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+      <AssemblyName>PaymentSystemApi</AssemblyName> 
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,9 +12,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.2" />
-  </ItemGroup>
+   <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />  
+</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PaymentSystem.Application\PaymentSystem.Application.csproj" />
