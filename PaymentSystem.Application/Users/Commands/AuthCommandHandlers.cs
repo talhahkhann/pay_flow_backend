@@ -10,13 +10,17 @@ public class AuthCommandHandlers :
 {
     private readonly IUserIdentityService _identityService;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IEmailSender _emailSender;
+    private readonly IOtpService _otpService;
 
     public AuthCommandHandlers(
         IUserIdentityService identityService,
-        IJwtTokenGenerator jwtTokenGenerator)
+        IJwtTokenGenerator jwtTokenGenerator, IEmailSender emailSender , IOtpService otpService)
     {
         _identityService = identityService;
         _jwtTokenGenerator = jwtTokenGenerator;
+        _emailSender = emailSender;
+        _otpService = otpService;
     }
 
     public async Task<Result<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -30,10 +34,13 @@ public class AuthCommandHandlers :
 
             if (userIdResult.IsFailure)
                 return Result<string>.Failure(userIdResult.Error);
-
-            var token = _jwtTokenGenerator.GenerateToken(userIdResult.Value, request.Email);
+            // Generate OTP
+            var otp = await _otpService.GenerateOtpAsync(userIdResult.Value);
+            //Send Email
+            await _emailSender.SendOtpEmailAsync(request.Email, otp);
+            // var token = _jwtTokenGenerator.GenerateToken(userIdResult.Value, request.Email);
             
-            return Result<string>.Success(token);
+            return Result<string>.Success("Verification OTP Sent to Email");
         }
         catch (Exception ex)
         {
@@ -51,10 +58,10 @@ public class AuthCommandHandlers :
 
             if (userIdResult.IsFailure)
                 return Result<string>.Failure(userIdResult.Error);
-
-            var token = _jwtTokenGenerator.GenerateToken(userIdResult.Value, request.Email);
+            var otp = await _otpService.GenerateOtpAsync(userIdResult.Value);
+            await _emailSender.SendOtpEmailAsync(request.Email, otp);
             
-            return Result<string>.Success(token);
+            return Result<string>.Success("Otp sent to Email");
         }
         catch (Exception ex)
         {
