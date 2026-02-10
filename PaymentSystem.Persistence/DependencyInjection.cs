@@ -4,10 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PaymentSystem.Application.Common.Interfaces;
-using PaymentSystem.Persistence.Context;
+using PaymentSystem.Persistence.Auth;
 using PaymentSystem.Persistence.Identity;
 using PaymentSystem.Persistence.Indentity;
 using PaymentSystem.Persistence.Interceptors;
+using PaymentSystem.Persistence.Mappings;
+using PaymentSystem.Persistence.Payments;
+using PaymentSystem.Persistence.Repositories;
 
 namespace PaymentSystem.Persistence;
 
@@ -22,15 +25,36 @@ public static class DependencyInjection
         // Register the service
         services.AddScoped<IUserIdentityService, IdentityService>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOtpCodeRepository, OtpCodeRepository>();
+        services.AddScoped<IUnitOfWork, AuthUnitOfWork>();
+        services.AddAutoMapper(typeof(UserProfile)); // Scans assembly with UserProfile
+
+
 
 
         // Add DbContext with interceptor
-        services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
+        services.AddDbContext<AuthDbContext>((serviceProvider, options) =>
         {
             options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection"),
-                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
+                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(AuthDbContext).Assembly.FullName)
             );
+
+
+            var currentUserService = serviceProvider.GetService<ICurrentUserService>();
+            if (currentUserService != null)
+            {
+                var interceptor = serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>();
+                options.AddInterceptors(interceptor);
+            }
+        });
+        services.AddDbContext<PaymentDbContext>((serviceProvider, options) =>
+        {
+            options.UseNpgsql(
+                configuration.GetConnectionString("DefaultConnection"),
+                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(PaymentDbContext).Assembly.FullName)
+            );
+            
 
             var currentUserService = serviceProvider.GetService<ICurrentUserService>();
             if (currentUserService != null)
@@ -58,7 +82,7 @@ public static class DependencyInjection
             // User settings
             options.User.RequireUniqueEmail = true;
         })
-        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddEntityFrameworkStores<AuthDbContext>()
         .AddDefaultTokenProviders();
         //Register Identity Service
         services.AddScoped<IUserIdentityService, IdentityService>();

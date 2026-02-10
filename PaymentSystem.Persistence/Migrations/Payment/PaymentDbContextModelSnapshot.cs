@@ -2,24 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using PaymentSystem.Persistence.Context;
+using PaymentSystem.Persistence.Payments;
 
 #nullable disable
 
-namespace PaymentSystem.Persistence.Migrations
+namespace PaymentSystem.Persistence.Migrations.Payment
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260206072003_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(PaymentDbContext))]
+    partial class PaymentDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("payments")
                 .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -62,7 +60,7 @@ namespace PaymentSystem.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", "payments");
                 });
 #pragma warning restore 612, 618
         }

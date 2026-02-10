@@ -1,36 +1,42 @@
-using Microsoft.EntityFrameworkCore;
+// PaymentSystem.Persistence/Repositories/UserRepository.cs
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using PaymentSystem.Application.Common.Interfaces;
 using PaymentSystem.Domain.Users;
-using PaymentSystem.Persistence.Context;
+using PaymentSystem.Persistence.Indentity;
+
+namespace PaymentSystem.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly ApplicationDbContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IMapper _mapper;
 
-    public UserRepository(ApplicationDbContext context)
+    public UserRepository(UserManager<ApplicationUser> userManager, IMapper mapper)
     {
-        _context = context;
-    }
-
-    public async Task<User?> GetByIdAsync(Guid id)
-    {
-        var identityUser = await _context.Users
-            .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Id == id);
-
-        if (identityUser == null) return null;
-
-        return new User(identityUser.Id, identityUser.FullName, identityUser.Email!);
+        _userManager = userManager;
+        _mapper = mapper;
     }
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        var identityUser = await _context.Users
-            .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Email == email);
+        var appUser = await _userManager.FindByEmailAsync(email);
+        return appUser == null ? null : _mapper.Map<User>(appUser);
+    }
 
-        if (identityUser == null) return null;
+    public async Task<User?> GetByIdAsync(Guid id)
+    {
+        var appUser = await _userManager.FindByEmailAsync(id.ToString());
+        return appUser == null ? null : _mapper.Map<User>(appUser);
+    }
 
-        return new User(identityUser.Id, identityUser.FullName, identityUser.Email!);
+    public async Task<bool> UpdateAsync(User user)
+    {
+        var existing = await _userManager.FindByIdAsync(user.Id.ToString());
+        if (existing == null) return false;
+
+        _mapper.Map(user, existing); // Updates existing ApplicationUser
+        var result = await _userManager.UpdateAsync(existing);
+        return result.Succeeded ? result.Succeeded : false;
     }
 }
