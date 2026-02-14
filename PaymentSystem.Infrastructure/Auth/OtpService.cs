@@ -24,7 +24,7 @@ public class OtpService : IOtpService
         var count = await _otpRepository.CountRecentOtpAsync(userId, TimeSpan.FromMinutes(5));
         if(count >= 3)
         {
-            throw new Exception("Too Many OTP request. Try again later.")
+            throw new Exception("Too Many OTP request. Try again later.");
         }
         await _otpRepository.MarkAllActiveOtpsAsUsedForUser(userId);
         var code = RandomNumberGenerator.GetInt32(100000, 999999).ToString();

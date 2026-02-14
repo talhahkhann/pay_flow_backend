@@ -30,8 +30,8 @@ public class AuthCommandHandlers :
             var userIdResult = await _identityService.RegisterUserAsync(
                 request.FullName,
                 request.Email,
-                request.Password,
-                request.UserName
+                request.UserName,
+                request.Password
                 );
 
             if (userIdResult.IsFailure)
