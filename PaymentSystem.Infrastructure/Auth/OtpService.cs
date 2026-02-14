@@ -15,6 +15,17 @@ public class OtpService : IOtpService
 
     public async Task<string> GenerateOtpAsync(Guid userId)
     {
+        var lastOtp = await _otpRepository.GetLatestByUserIdAsync(userId);
+        if (lastOtp != null && lastOtp.CreatedOn > DateTime.UtcNow.AddSeconds(-30))
+        {
+            throw new Exception("Please wait 30 seconds before requesting another OTP.");
+        }
+        //Rate Limit
+        var count = await _otpRepository.CountRecentOtpAsync(userId, TimeSpan.FromMinutes(5));
+        if(count >= 3)
+        {
+            throw new Exception("Too Many OTP request. Try again later.")
+        }
         await _otpRepository.MarkAllActiveOtpsAsUsedForUser(userId);
         var code = RandomNumberGenerator.GetInt32(100000, 999999).ToString();
         var hashedCode = BCrypt.Net.BCrypt.HashPassword(code);

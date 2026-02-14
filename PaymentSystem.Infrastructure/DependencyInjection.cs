@@ -19,10 +19,11 @@ public static class DependencyInjection
         // JWT Configuration and Service
         services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-        services.AddScoped<IOtpService, OtpService>();   
+        services.AddScoped<IOtpService, OtpService>();
         services.AddScoped<IEmailSender, BrevoEmailSender>();
 
         // Add other infrastructure services here
+        services.AddCustomRateLimiting();
         // services.AddScoped<IEmailService, EmailService>();
         // services.AddScoped<IFileStorage, AzureBlobStorage>();
 

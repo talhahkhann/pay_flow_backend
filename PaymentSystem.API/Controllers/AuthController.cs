@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using PaymentSystem.Application.Users.Commands;
 
 namespace PaymentSystem.API.Controllers
@@ -16,6 +17,7 @@ namespace PaymentSystem.API.Controllers
         }
 
         [HttpPost("register")]
+        [EnableRateLimiting("OtpPolicy")]
         public async Task<IActionResult> Register(RegisterUserCommand command)
         {
             var result = await _mediator.Send(command);
@@ -25,6 +27,7 @@ namespace PaymentSystem.API.Controllers
         }
 
         [HttpPost("login")]
+        [EnableRateLimiting("OtpPolicy")]
         public async Task<IActionResult> Login(LoginUserCommand command)
         {
             var token = await _mediator.Send(command);

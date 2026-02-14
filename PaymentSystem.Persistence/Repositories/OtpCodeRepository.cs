@@ -26,7 +26,7 @@ public class OtpCodeRepository : IOtpCodeRepository
 
         return updatedCount > 0; // true if at least one OTP was marked as used
     }
-        
+
 
     public async Task<OtpCode?> GetLatestUnusedByUserIdAsync(Guid userId)
     {
@@ -35,11 +35,26 @@ public class OtpCodeRepository : IOtpCodeRepository
             .OrderByDescending(x => x.CreatedOn)
             .FirstOrDefaultAsync();
     }
+    //Rate Limiting Helper Function
+    public async Task<int> CountRecentOtpAsync(Guid userId, TimeSpan window)
+    {
+        var since = DateTime.UtcNow.Subtract(window);
+        return await _context.OTPs
+        .CountAsync(x => x.UserId == userId && x.CreatedOn >= since);
+    }
     
 
     public async Task UpdateAsync(OtpCode otpCode)
     {
         _context.OTPs.Update(otpCode);
         // No SaveChanges here — let unit of work or service handle it
+    }
+
+    public async Task<OtpCode?> GetLatestByUserIdAsync(Guid userId)
+    {
+        return await _context.OTPs
+               .Where(x => x.UserId == userId)
+               .OrderByDescending(x => x.CreatedOn)
+               .FirstOrDefaultAsync();
     }
 }
