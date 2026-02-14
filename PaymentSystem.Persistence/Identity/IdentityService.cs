@@ -15,7 +15,7 @@ public class IdentityService : IUserIdentityService
         _userManager = userManager;
     }
 
-    public async Task<Result<Guid>> RegisterUserAsync(string fullName, string email, string password)
+    public async Task<Result<Guid>> RegisterUserAsync(string fullName, string email, string userName ,string password)
     {
         try
         {
@@ -27,7 +27,8 @@ public class IdentityService : IUserIdentityService
             {
                 FullName = fullName,
                 Email = email,
-                UserName = email
+                UserName = userName,
+                CreatedOn = DateTime.Now,
             };
 
             var result = await _userManager.CreateAsync(user, password);
