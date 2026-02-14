@@ -15,7 +15,7 @@ public class IdentityService : IUserIdentityService
         _userManager = userManager;
     }
 
-    public async Task<Result<Guid>> RegisterUserAsync(string fullName, string email, string userName ,string password)
+    public async Task<Result<Guid>> RegisterUserAsync(string fullName, string email,string userName,string password )
     {
         try
         {

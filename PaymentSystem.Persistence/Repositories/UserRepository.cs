@@ -26,7 +26,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> GetByIdAsync(Guid id)
     {
-        var appUser = await _userManager.FindByEmailAsync(id.ToString());
+        var appUser = await _userManager.FindByIdAsync(id.ToString());
         return appUser == null ? null : _mapper.Map<User>(appUser);
     }
 

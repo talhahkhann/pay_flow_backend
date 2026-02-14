@@ -23,8 +23,9 @@ public class GetCurrentUserQueryHandler
         try
         {
             if (_currentUser.UserId == null)
-                return Result<CurrentUserDto>.Unauthorized("Auth.Unauthorized", "User not logged in");
-
+                return Result<CurrentUserDto>.NotFound("Auth.NotFound", "User not Found in");
+            if(_currentUser.IsAuthenticated == false)
+                return Result<CurrentUserDto>.Unauthorized("Auth.Unauthorized", "User not Authenticated in");
             var user = await _users.GetByIdAsync(_currentUser.UserId.Value);
 
             if (user == null)

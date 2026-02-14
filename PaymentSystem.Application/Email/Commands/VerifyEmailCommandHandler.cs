@@ -38,6 +38,8 @@ public class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand, Res
         }
 
         // Step 3: Confirm email
+        user.ConfirmEmail();
+
         var success = await _userrepository.UpdateAsync(user);
         if (!success)
         {
